@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Cards</title>
+    <style>
+        /* style.css */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 200px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            padding: 20px;
+        }
+
+        .front {
+            background-color: #f7f7f7;
+        }
+
+        .back {
+            background-color: #ffee58;
+            transform: rotateY(180deg);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flashcard">
+            <div class="card" id="flashcard">
+                <p id="question" class="front">Qual é a capital da França?</p>
+                <p id="answer" class="back">Paris</p>
+            </div>
+        </div>
+        <button id="next-btn">Próximo</button>
+    </div>
+
+    <script>
+        // script.js
+
+        const flashcards = [
+            { question: "Qual é a capital da França?", answer: "Paris" },
+            { question: "Qual é a maior montanha do mundo?", answer: "Monte Everest" },
+            { question: "Quem escreveu 'Dom Quixote'?", answer: "Miguel de Cervantes" },
+            { question: "Quantos estados tem o Brasil?", answer: "26 estados e 1 Distrito Federal" },
+        ];
+
+        let currentIndex = 0;
+
+        const questionElement = document.getElementById('question');
+        const answerElement = document.getElementById('answer');
+        const nextButton = document.getElementById('next-btn');
+
+        function loadCard(index) {
+            questionElement.textContent = flashcards[index].question;
+            answerElement.textContent = flashcards[index].answer;
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % flashcards.length;
+            loadCard(currentIndex);
+        });
+
+        // Carrega o primeiro flashcard ao iniciar
+        loadCard(currentIndex);
+    </script>
+</body>
+</html>
